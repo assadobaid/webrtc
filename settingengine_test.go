@@ -9,6 +9,7 @@ import (
 
 	"github.com/pion/transport/test"
 	"github.com/stretchr/testify/assert"
+	"golang.org/x/net/proxy"
 )
 
 func TestSetEphemeralUDPPortRange(t *testing.T) {
@@ -138,4 +139,13 @@ func TestSettingEngine_SetICETCP(t *testing.T) {
 	settingEngine.SetICETCPMux(tcpMux)
 
 	assert.Equal(t, tcpMux, settingEngine.iceTCPMux)
+}
+
+func TestSettingEngineProxyDialer(t *testing.T) {
+	s := SettingEngine{}
+	s.proxyDialer = nil
+	s.SetProxyDialer(proxy.FromEnvironment())
+	if s.proxyDialer == nil {
+		t.Fatalf("Failed to set Dial")
+	}
 }

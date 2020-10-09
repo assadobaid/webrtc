@@ -250,6 +250,11 @@ func (e *SettingEngine) SetICETCPMux(tcpMux ice.TCPMux) {
 	e.iceTCPMux = tcpMux
 }
 
+// SetProxyDialer sets the proxy dialer interface based on golang.org/x/net/proxy.
+func (e *SettingEngine) SetProxyDialer(d proxy.Dialer) {
+	e.proxyDialer = d
+}
+
 // AddSDPExtensions adds available and offered extensions for media type.
 //
 // Ext IDs are optional and generated if you do not provide them
@@ -310,9 +315,4 @@ func (e *SettingEngine) getSDPExtensions() map[SDPSectionType][]sdp.ExtMap {
 		}
 	}
 	return e.sdpExtensions
-}
-
-// SetProxyDialer sets the proxy dialer interface based on golang.org/x/net/proxy.
-func (e *SettingEngine) SetProxyDialer(d proxy.Dialer) {
-	e.proxyDialer = d
 }
